@@ -30,7 +30,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-![Walkthrough](Walkthrough.gif)
+![Walkthrough](WalkthroughFlashCards.gif)
 
 
 <!-- Replace this with whatever GIF tool you used! -->
