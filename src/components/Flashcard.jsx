@@ -25,7 +25,7 @@ const Flashcard = () => {
     }
 
     const showTheAnswer = () => {
-        setShowAnswer(true);
+        setShowAnswer(!showAnswer);
     }
 
     return (
@@ -35,20 +35,19 @@ const Flashcard = () => {
             <h3> Number of cards: {questionAnswer.length} </h3>
             <div className="card">
                {showAnswer ? (
-                <>
-                <p>{questionAnswer[cardIndex].answer}</p>
-                <button onClick={nextQA}>Next Question</button>
-                </>
+                <div onClick={showTheAnswer}>
+                  <p>{questionAnswer[cardIndex].answer}</p>
+                  <button onClick={nextQA}>Next Question</button>
+                </div>
                 ) : (
-                <>
-                <p>{questionAnswer[cardIndex].question}</p>
-                <button onClick={showTheAnswer}> show Answer </button>
-                </>
-               )
-            }
+                <div onClick={showTheAnswer}>
+                  <p>{questionAnswer[cardIndex].question}</p>
+                  <p>Click the question above to show answer!</p>
+                </div>
+               )}
             </div>
         </div>
     );
 };
 
-export default Flashcard; 
+export default Flashcard;
