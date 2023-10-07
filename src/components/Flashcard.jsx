@@ -3,8 +3,11 @@ import "./Flashcard.css";
 
 const Flashcard = () => {
 
-    const [cardIndex, setCardIndex] = useState(0); // Holds the index of teh cards in the dictionary
+    const [cardIndex, setCardIndex] = useState(0); // Holds the index of the cards in the dictionary
     const [showAnswer, setShowAnswer] = useState(false); // Show the answer or not
+    const [correctOrFalse, setCorrectOrFalse] = useState(false);
+    const [Uanswer,setUAnswer] = useState("");
+    const [guess, setGuess] = useState(false);
 
     // Dictionary to hold questions and answers
     const questionAnswer = [
@@ -22,10 +25,31 @@ const Flashcard = () => {
     const nextQA = () => {
         setCardIndex(cardIndex + 1);
         setShowAnswer(false);
+        setGuess(false);
     }
+
+    const prevQA = () => {
+        setCardIndex(cardIndex - 1);
+        setShowAnswer(false);
+        setGuess(false);
+    } 
 
     const showTheAnswer = () => {
         setShowAnswer(!showAnswer);
+    }
+
+    const updateAnswer = (e) => {
+        setUAnswer(e.target.value);
+    }
+
+    const checkAnswer = () => {
+        setGuess(true);
+        if (Uanswer === questionAnswer[cardIndex].answer) {
+            setCorrectOrFalse(true);
+        } else {
+            setCorrectOrFalse(false);
+        }
+        setUAnswer("");
     }
 
     return (
@@ -37,14 +61,24 @@ const Flashcard = () => {
                {showAnswer ? (
                 <div onClick={showTheAnswer}>
                   <p>{questionAnswer[cardIndex].answer}</p>
-                  <button onClick={nextQA}>Next Question</button>
                 </div>
                 ) : (
-                <div onClick={showTheAnswer}>
-                  <p>{questionAnswer[cardIndex].question}</p>
-                  <p>Click the question above to show answer!</p>
-                </div>
+                <>
+                    <div onClick={showTheAnswer}>
+                        <p>{questionAnswer[cardIndex].question}</p>
+                    </div>
+                    <input type="text" value={Uanswer} onChange={updateAnswer} />
+                    <button onClick={checkAnswer}> Submit </button>
+                    {guess && (
+                        <div>
+                            <p>{correctOrFalse ? "Correct" : "False"}</p>
+                        </div>
+                    )}
+                </>
                )}
+               <><p></p></>
+               <button onClick={prevQA}> Prev </button>
+               <button onClick={nextQA}> Next </button>
             </div>
         </div>
     );
